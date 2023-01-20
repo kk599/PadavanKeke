@@ -41,14 +41,15 @@ adbyby_start()
 	add_rule
 	hosts_ads
 	/sbin/restart_dhcpd
-	add_cron
+	#add_cron
+	logger -t "adbyby" "/bin/sh /usr/bin/adbyby.sh G >/dev/null 2>&1"
 	logger -t "adbyby" "Adbyby启动完成。"
 }
 
 adbyby_close()
 {
 	del_rule
-	del_cron
+	#del_cron
 	del_dns
 	killall -q adbyby
 	if [ $mem_mode -eq 1 ]; then
