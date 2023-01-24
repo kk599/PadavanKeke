@@ -521,6 +521,18 @@ EEE
 	fi
 }
 
+LOCK_NAME="/tmp/adbyby.lock"
+
+if ( set -o noclobber; echo "$$" > "$LOCK_NAME") 2> /dev/null; then
+    # INT：中断，TERM：终止，EXIT：退出
+    # 当出现上面的信号时，将进行释放锁的操作
+    trap 'rm -f "$LOCK_NAME"; exit $?' INT TERM EXIT
+    logger -t "adbyby" "Success get lock"
+else
+    logger -t "adbyby" "Failed to acquire lock"
+    exit 0
+fi
+
 case $1 in
 start)
 	adbyby_start
