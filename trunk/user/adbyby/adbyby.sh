@@ -24,6 +24,7 @@ nvram set adbybyrules_x_0=""
 nvram set adbybyrules_road_x_0=""
 adbyby_start()
 {
+	adbyby_close
 	addscripts
 	if [ ! -f "$PROG_PATH/adbyby" ]; then
 	logger -t "adbyby" "adbyby程序文件不存在，正在解压..."
